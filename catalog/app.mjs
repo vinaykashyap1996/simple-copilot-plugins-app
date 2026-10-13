@@ -36,7 +36,7 @@ async function loadCatalog() {
         element('p', collection.description),
         element('p', `${collection.pluginIds.length} entries`)
       );
-      const button = element('button', 'Browse collection');
+      const button = element('button', `Browse ${collection.name}`);
       button.type = 'button';
       button.addEventListener('click', () => {
         filters.reset();
