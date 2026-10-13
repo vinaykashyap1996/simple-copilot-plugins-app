@@ -7,7 +7,7 @@ const MAX_FILE_BYTES = 1024 * 1024;
 const MAX_REQUEST_BYTES = 64 * 1024;
 const MAX_ENTRIES = 1000;
 const MAX_SEARCH_BYTES = 10 * MAX_FILE_BYTES;
-const PROTOCOL_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"];
+const PROTOCOL_VERSIONS = ["2025-11-25", "2025-06-18", "2024-11-05"];
 const decoder = new TextDecoder("utf-8", { fatal: true });
 let root;
 let initialized = false;

@@ -212,3 +212,12 @@ test("sample config launches from workspace with plugin-only default root", { ti
   assert.equal((await mcp.tool("read_text_file", { path: path.join(workspace, "README.md") })).isError, true);
   await mcp.close();
 });
+
+test("batch-requiring protocol version negotiates a supported version", { timeout: 10000 }, async (t) => {
+  const mcp = client(t, [server]);
+  const response = await mcp.request("initialize", {
+    protocolVersion: "2025-03-26", capabilities: {}, clientInfo: { name: "smoke-test", version: "1.0.0" }
+  });
+  assert.equal(response.result.protocolVersion, "2025-11-25");
+  await mcp.close();
+});

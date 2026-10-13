@@ -4,8 +4,9 @@ A dependency-free, read-only Node.js MCP server over stdio. Requires Node.js 18
 or newer. It supports `initialize`, `notifications/initialized`, `ping`,
 `tools/list`, and `tools/call`, with newline-delimited JSON-RPC 2.0 messages.
 Stdout is reserved for protocol responses; startup failures go to stderr.
-Supported protocol versions: `2024-11-05`, `2025-03-26`, `2025-06-18`, and
-`2025-11-25`. An unknown version negotiates `2025-11-25`.
+Supported protocol versions: `2024-11-05`, `2025-06-18`, and `2025-11-25`.
+Other versions negotiate `2025-11-25`. The batch-requiring `2025-03-26` version
+is not supported.
 
 ## Setup
 
