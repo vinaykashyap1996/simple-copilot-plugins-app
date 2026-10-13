@@ -23,7 +23,8 @@ function option(select, value, label) {
 
 async function loadCatalog() {
   try {
-    const response = await fetch('./registry.json');
+    let response = await fetch('../api/plugins');
+    if (!response.ok) response = await fetch('./registry.json');
     if (!response.ok) throw new Error('Catalog request failed');
     const registry = await response.json();
     for (const value of registry.types) option(type, value, value);
@@ -69,9 +70,10 @@ async function loadCatalog() {
         const collections = registry.bundles.filter(item => item.pluginIds.includes(plugin.id));
         if (collections.length) card.append(element('p', `Collections: ${collections.map(item => item.name).join(', ')}`));
         if (plugin.status === 'verified' && plugin.source) {
-          const url = new URL(plugin.source, window.location.href);
+          const source = `${plugin.source}${plugin.source.endsWith('/') ? '' : '/'}plugin.json`;
+          const url = new URL(source, window.location.href);
           if (url.origin === window.location.origin && ['http:', 'https:'].includes(url.protocol)) {
-            const link = element('a', 'View local plugin files');
+            const link = element('a', 'View plugin manifest');
             link.href = url.href;
             card.append(link);
           }

@@ -38,8 +38,11 @@ function staticFile(pathname) {
   const target = path.resolve(repositoryRoot, `.${decoded}`);
   if (!isWithin(base, target)) return null;
   try {
+    const requestedPath = fs.statSync(target).isDirectory()
+      ? path.join(target, 'index.html')
+      : target;
     const realBase = fs.realpathSync(base);
-    const realTarget = fs.realpathSync(target);
+    const realTarget = fs.realpathSync(requestedPath);
     if (!isWithin(realBase, realTarget) || !fs.statSync(realTarget).isFile()) return null;
     return realTarget;
   } catch {

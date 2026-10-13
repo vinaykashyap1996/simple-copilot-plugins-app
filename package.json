@@ -7,6 +7,6 @@
     "test": "node --test scripts/*.test.js plugins/mcp-local-tools/scripts/smoke-test.js"
   },
   "devDependencies": {
-    "ajv": "8.17.1"
+    "ajv": "8.20.0"
   }
 }

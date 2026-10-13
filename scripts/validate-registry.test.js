@@ -20,6 +20,7 @@ for (const [name, mutate, expected] of [
   ['unsupported status', data => { data.plugins[0].status = 'available'; }, /must be equal to one of the allowed values/],
   ['verified entry without source', data => { data.plugins[0].source = null; }, /must match "then" schema/],
   ['draft entry with a source', data => { data.plugins[3].source = '../plugins/skill-summarizer'; }, /must match "else" schema/],
+  ['draft entry with claimed compatibility', data => { data.plugins[3].compatibility.claude = 'native'; }, /must match "else" schema/],
   ['duplicate plugin ID', data => { data.plugins[1].id = data.plugins[0].id; }, /Duplicate plugin ID/],
   ['unknown bundle reference', data => { data.bundles[0].pluginIds.push('missing-plugin'); }, /Unknown plugin in bundle/],
 ]) {
