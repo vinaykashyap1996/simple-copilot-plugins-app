@@ -1,3 +1,8 @@
+---
+name: issue-summarizer
+description: Summarizes GitHub issues into concise action-oriented briefs.
+---
+
 # Issue Summarizer Skill
 
 ## Purpose
