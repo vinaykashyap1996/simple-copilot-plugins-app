@@ -34,6 +34,24 @@ The root is chosen only at startup, never by a tool call. Do not choose a home
 directory or a directory containing credentials. These tools can read **all**
 text files in the chosen root, including dotfiles.
 
+## Troubleshooting: `spawn node ENOENT`
+
+GUI clients such as VS Code often do not inherit the PATH from your terminal.
+With nvm, `node` lives under `~/.nvm/versions/node/...` and is only added to
+PATH by shell init files, so launching plain `node` fails with
+`spawn node ENOENT` for the `local-tools` server.
+
+The plugin therefore starts the server through `/bin/sh`, which runs your login
+shell (`$SHELL -lc`), sources `$NVM_DIR/nvm.sh` (default `~/.nvm/nvm.sh`) when
+present, and then runs `node` with `${PLUGIN_ROOT}/mcp/server.js` passed as a
+quoted argument. This targets macOS/Linux and needs no extra dependencies;
+Windows has no `/bin/sh`, so use the manual configuration above there.
+
+If it still fails, run `command -v node` in a terminal and configure the
+server manually with that **absolute node path** as `command`. Then update/reinstall
+the plugin, start a new chat session, and check **MCP: List Servers** >
+`local-tools` > **Show Output** (VS Code) for logs.
+
 ## Tools
 
 All arguments are required strings; extra arguments are rejected. Paths are
