@@ -1,6 +1,6 @@
 # Simple Copilot Plugins App
 
-A marketplace-style repository for Copilot plugins, including skills, agents, MCP config, prompts, scripts, and references.
+A marketplace-style repository for fullstack JavaScript workflows with GitHub Copilot and Claude. Includes existing Copilot samples and a multi-provider draft catalog of skills, prompts, MCP connections, instructions, agents, scripts, and references.
 
 ## Structure
 
@@ -9,6 +9,64 @@ A marketplace-style repository for Copilot plugins, including skills, agents, MC
 - `plugins/agent-triage/` — sample custom agent plugin
 - `plugins/mcp-local-tools/` — sample MCP plugin
 - `shared/` — reusable prompts, scripts, and references
+- `catalog/registry.json` — multi-provider browsing metadata and draft collections
+- `catalog/plugin.schema.json` — schema for the multi-provider registry
+- `catalog/index.html` — lightweight catalog UI with type, provider, status, and bundle filters
+- `api/plugins.mjs` — normalized plugin catalog API
+
+## Draft catalog
+
+Install the small validation dependency with `npm ci`, then run `npm start` and
+open `http://127.0.0.1:3000/catalog/`. The same local server exposes the normalized
+catalog at `/api/plugins`; query parameters `type`, `provider`, and `status` can
+filter results (for example, `/api/plugins?type=mcp&provider=github_copilot&status=verified`).
+Opening the HTML directly via `file://` does not support loading the registry.
+
+The **Beautiful Website bundle** and **Fullstack JS bundle** are starter
+collections, not installers. Framework/database integrations and automated
+installation are future work. The existing Copilot marketplace and installation
+commands below remain unchanged; drafts are deliberately excluded from it.
+
+All 17 requested names are **draft / unverified placeholders**: code review,
+ponztail, claude mem, obsidan skill, superpowers, remotion, strix, claude code setup,
+taste skill, web design, guidlianve skill, awesome design, image to code,
+plazwright cli, herder, graphifz, and task observer. Original spellings are
+preserved; suggested roles, types, and bundle membership are provisional, not
+claims about an upstream project.
+
+### Registry schema and additions
+
+`catalog/registry.json` is a versioned browsing registry, separate from the
+Copilot client's `.github/plugin/marketplace.json` installation format:
+
+- `schemaVersion`: currently `1`.
+- `types`: allowed component types: `skills`, `prompts`, `mcp`, `instructions`,
+  `agents`, `scripts`, `references`. A plugin can contain multiple types.
+- `providers`: stable provider IDs mapped to display names (`github_copilot`,
+  `claude`).
+- `compatibilityStatuses`: `native` (works directly), `adapted` (requires
+  documented adaptation), `unsupported` (known not to work), or `unverified`
+  (not tested/confirmed). This is per plugin/provider, not a guarantee that every
+  client supports every listed component.
+- `plugins`: entries with unique kebab-case `id`, `name`, `description`, `types`,
+  `status` (`verified`, `draft`, or `unverified`), `source`, and `compatibility`.
+  `source` is `null` for drafts and unverified entries, or a local plugin
+  directory relative to `catalog/` for verified entries. `compatibility` must
+  explicitly map every provider ID to a compatibility status.
+- `bundles`: collections with unique `id`, `name`, `description`, `status`, and
+  `pluginIds` referencing existing entries.
+
+To add a plugin, start with [`docs/plugin-template.json`](docs/plugin-template.json)
+and follow [the contribution guide](docs/adding-a-plugin.md). Verify source,
+license, permissions, setup, and provider behavior before marking it verified or
+claiming native/adapted compatibility; document any adaptation in the plugin's
+own guide. For a verified local Copilot plugin, also follow the existing plugin
+layout and add it to `.github/plugin/marketplace.json`.
+
+Provider filters include **only native/adapted** entries. Choose “All providers /
+unverified” to see wishlist entries. Existing sample plugins are native Copilot
+entries; their Claude compatibility remains unverified. Browsing never executes
+commands or installs anything.
 
 ## Usage
 
@@ -46,12 +104,18 @@ absolute-node-path fallback.
 
 ### Verification
 
-From a local checkout, validate JSON, metadata, and plugin source directories:
+From a local checkout, validate the catalog schema, metadata, and plugin source
+directories:
 
 ```sh
-bash scripts/validate-plugins.sh
-node --test scripts/validate-plugins.test.js
+npm ci
+npm run validate:plugins
+npm test
 ```
+
+`npm run validate:plugins` validates `catalog/registry.json` against
+`catalog/plugin.schema.json` and checks the existing Copilot marketplace sources.
+The same validation and test commands run on pushes and pull requests.
 
 After the fix is merged into `master`, register and browse it with Copilot CLI:
 

@@ -1,0 +1,12 @@
+{
+  "name": "simple-copilot-plugins-app",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "validate:plugins": "node scripts/validate-registry.mjs && bash scripts/validate-plugins.sh",
+    "test": "node --test scripts/*.test.js plugins/mcp-local-tools/scripts/smoke-test.js"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0"
+  }
+}

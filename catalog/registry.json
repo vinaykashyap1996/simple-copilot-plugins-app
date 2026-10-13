@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "types": ["skills", "prompts", "mcp", "instructions", "agents", "scripts", "references"],
+  "statuses": ["verified", "draft", "unverified"],
+  "providers": {
+    "github_copilot": "GitHub Copilot",
+    "claude": "Claude"
+  },
+  "compatibilityStatuses": ["native", "adapted", "unsupported", "unverified"],
+  "plugins": [
+    {
+      "id": "skill-summarizer",
+      "name": "Skill Summarizer",
+      "description": "Existing sample skill for summarizing GitHub issues.",
+      "types": ["skills", "prompts", "scripts", "references"],
+      "status": "verified",
+      "source": "../plugins/skill-summarizer/",
+      "compatibility": { "github_copilot": "native", "claude": "unverified" }
+    },
+    {
+      "id": "agent-triage",
+      "name": "Agent Triage",
+      "description": "Existing sample agent for reviewing pull request risk and test gaps.",
+      "types": ["agents", "prompts", "references"],
+      "status": "verified",
+      "source": "../plugins/agent-triage/",
+      "compatibility": { "github_copilot": "native", "claude": "unverified" }
+    },
+    {
+      "id": "mcp-local-tools",
+      "name": "MCP Local Tools",
+      "description": "Existing read-only local file tools; see the setup and safety guide.",
+      "types": ["mcp", "scripts", "references"],
+      "status": "verified",
+      "source": "../plugins/mcp-local-tools/",
+      "compatibility": { "github_copilot": "native", "claude": "unverified" }
+    },
+    {
+      "id": "code-review",
+      "name": "code review",
+      "description": "Draft wishlist entry for code review; upstream identity and capabilities need verification.",
+      "types": ["skills", "prompts"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "ponztail",
+      "name": "ponztail",
+      "description": "Unidentified requested name; type and intended role are provisional.",
+      "types": ["references"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "claude-mem",
+      "name": "claude mem",
+      "description": "Draft wishlist entry for project memory; identity, privacy, and permissions need verification.",
+      "types": ["mcp"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "obsidan-skill",
+      "name": "obsidan skill",
+      "description": "Requested spelling retained; possible notes/knowledge skill, not yet identified.",
+      "types": ["skills"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "superpowers",
+      "name": "superpowers",
+      "description": "Draft wishlist entry for development workflows; exact project and features need verification.",
+      "types": ["skills", "agents"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "remotion",
+      "name": "remotion",
+      "description": "Draft wishlist entry for React video workflows; plugin source needs verification.",
+      "types": ["skills", "references"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "strix",
+      "name": "strix",
+      "description": "Draft wishlist entry for security review; identity and authorization requirements need verification.",
+      "types": ["agents"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "claude-code-setup",
+      "name": "claude code setup",
+      "description": "Draft wishlist entry for assistant setup guidance; no executable setup is supplied.",
+      "types": ["instructions", "scripts"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "taste-skill",
+      "name": "taste skill",
+      "description": "Draft wishlist entry for visual direction; upstream skill needs verification.",
+      "types": ["skills"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "web-design",
+      "name": "web design",
+      "description": "Draft wishlist entry for responsive, accessible website design guidance.",
+      "types": ["skills", "prompts"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "guidlianve-skill",
+      "name": "guidlianve skill",
+      "description": "Unidentified requested name; skill classification is provisional.",
+      "types": ["skills"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "awesome-design",
+      "name": "awesome design",
+      "description": "Draft wishlist entry for design inspiration and reusable guidance.",
+      "types": ["skills", "references"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "image-to-code",
+      "name": "image to code",
+      "description": "Draft wishlist entry for turning visual mockups into UI; tooling needs verification.",
+      "types": ["skills", "prompts"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "plazwright-cli",
+      "name": "plazwright cli",
+      "description": "Requested spelling retained; possibly Playwright CLI, not a confirmed identity.",
+      "types": ["scripts"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "herder",
+      "name": "herder",
+      "description": "Unidentified requested name; type and intended role are provisional.",
+      "types": ["references"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "graphifz",
+      "name": "graphifz",
+      "description": "Requested spelling retained; possibly Graphviz diagram tooling, not a confirmed identity.",
+      "types": ["scripts", "references"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    },
+    {
+      "id": "task-observer",
+      "name": "task observer",
+      "description": "Draft wishlist entry for task visibility; identity and integration need verification.",
+      "types": ["agents"],
+      "status": "draft",
+      "source": null,
+      "compatibility": { "github_copilot": "unverified", "claude": "unverified" }
+    }
+  ],
+  "bundles": [
+    {
+      "id": "beautiful-website",
+      "name": "Beautiful Website bundle",
+      "description": "Visual direction → responsive UI → image implementation → browser checks. Draft collection, not an installer.",
+      "status": "draft",
+      "pluginIds": ["taste-skill", "web-design", "guidlianve-skill", "awesome-design", "image-to-code", "plazwright-cli"]
+    },
+    {
+      "id": "fullstack-js",
+      "name": "Fullstack JS bundle",
+      "description": "Plan → configure → implement → test → review. Framework and database integrations are future work; this is a draft collection.",
+      "status": "draft",
+      "pluginIds": ["superpowers", "claude-code-setup", "code-review", "plazwright-cli", "task-observer", "graphifz", "mcp-local-tools"]
+    }
+  ]
+}

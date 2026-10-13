@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "types",
+    "statuses",
+    "providers",
+    "compatibilityStatuses",
+    "plugins",
+    "bundles"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "types": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "enum": ["skills", "prompts", "mcp", "instructions", "agents", "scripts", "references"]
+      }
+    },
+    "statuses": {
+      "const": ["verified", "draft", "unverified"]
+    },
+    "providers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["github_copilot", "claude"],
+      "properties": {
+        "github_copilot": { "type": "string", "minLength": 1 },
+        "claude": { "type": "string", "minLength": 1 }
+      }
+    },
+    "compatibilityStatuses": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["native", "adapted", "unsupported", "unverified"] }
+    },
+    "plugins": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "types", "status", "source", "compatibility"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "types": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": ["skills", "prompts", "mcp", "instructions", "agents", "scripts", "references"]
+            }
+          },
+          "status": { "enum": ["verified", "draft", "unverified"] },
+          "source": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "^(?!/)(?![A-Za-z][A-Za-z0-9+.-]*:).+$"
+              }
+            ]
+          },
+          "compatibility": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["github_copilot", "claude"],
+            "properties": {
+              "github_copilot": { "enum": ["native", "adapted", "unsupported", "unverified"] },
+              "claude": { "enum": ["native", "adapted", "unsupported", "unverified"] }
+            }
+          }
+        },
+        "if": {
+          "properties": { "status": { "const": "verified" } },
+          "required": ["status"]
+        },
+        "then": {
+          "properties": { "source": { "type": "string", "minLength": 1 } }
+        },
+        "else": {
+          "properties": {
+            "source": { "type": "null" },
+            "compatibility": {
+              "type": "object",
+              "properties": {
+                "github_copilot": { "const": "unverified" },
+                "claude": { "const": "unverified" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "bundles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "status", "pluginIds"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["verified", "draft", "unverified"] },
+          "pluginIds": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" }
+          }
+        }
+      }
+    }
+  }
+}

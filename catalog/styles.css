@@ -1,0 +1,23 @@
+:root {
+  color-scheme: light;
+  font-family: system-ui, sans-serif;
+  color: #182536;
+  background: #f3f5fa;
+}
+body { max-width: 1120px; margin: auto; padding: 2rem 1rem; }
+header, footer { padding: 1rem 0; }
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { margin-top: 2rem; }
+p { line-height: 1.6; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr)); gap: 1rem; }
+article { background: white; border: 1px solid #ccd5e3; border-radius: 12px; padding: 1.25rem; overflow-wrap: anywhere; }
+article h3 { margin-top: 0; }
+.badge { display: inline-block; background: #fff0ce; color: #664200; border-radius: 6px; padding: .2rem .6rem; }
+.compatibility { font-size: .9rem; margin: .4rem 0; }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; }
+label { display: flex; flex-direction: column; gap: .4rem; max-width: 100%; }
+button, select { font: inherit; padding: .6rem; border: 1px solid #63748c; border-radius: 6px; background: white; color: inherit; max-width: 100%; }
+button { cursor: pointer; }
+button:hover { background: #e5ebf6; }
+a { color: #234ca8; }
+:focus-visible { outline: 3px solid #234ca8; outline-offset: 3px; }
