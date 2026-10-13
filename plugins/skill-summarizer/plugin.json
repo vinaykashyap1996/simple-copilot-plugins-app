@@ -1,0 +1,10 @@
+{
+  "id": "skill-summarizer",
+  "name": "Issue Summarizer Skill",
+  "version": "0.1.0",
+  "type": "skill",
+  "description": "Summarizes GitHub issues into concise action-oriented briefs.",
+  "entry": {
+    "skill": "skills/issue-summarizer.md"
+  }
+}

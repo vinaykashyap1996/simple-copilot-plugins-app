@@ -1,0 +1,10 @@
+{
+  "id": "mcp-local-tools",
+  "name": "Local Tools MCP",
+  "version": "0.1.0",
+  "type": "mcp",
+  "description": "Example MCP server config for local helper tools.",
+  "entry": {
+    "mcp": "mcp/server.json"
+  }
+}

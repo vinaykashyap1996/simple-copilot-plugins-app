@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "local-tools": {
+      "command": "node",
+      "args": ["server.js"],
+      "cwd": "./plugins/mcp-local-tools/mcp"
+    }
+  }
+}
