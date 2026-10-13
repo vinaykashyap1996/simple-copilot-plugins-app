@@ -10,6 +10,11 @@ is not supported.
 
 ## Setup
 
+When installed as a Copilot CLI plugin, `plugin.json` registers the server using
+`${PLUGIN_ROOT}/mcp/server.js`, independent of the client's working directory.
+Keep server code in `mcp/` and register additional servers in `mcpServers`.
+The manual configuration below is separate from plugin installation.
+
 Copy the `mcpServers` entry from `mcp/server.json` into a compatible MCP client's
 configuration. That sample assumes the client launches Node from the repository
 workspace directory. For other working directories, replace the script argument

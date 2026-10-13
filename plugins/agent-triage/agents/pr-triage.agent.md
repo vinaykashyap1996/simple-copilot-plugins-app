@@ -1,3 +1,8 @@
+---
+name: pr-triage
+description: Reviews pull requests for risk, test gaps, and rollout readiness.
+---
+
 # PR Triage Agent
 
 ## Mission

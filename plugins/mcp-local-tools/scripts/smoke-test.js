@@ -208,7 +208,21 @@ test("sample config launches from workspace with plugin-only default root", { ti
   const mcp = client(t, entry.args, workspace);
   await mcp.initialize("2024-11-05");
   const descriptor = await mcp.tool("read_text_file", { path: "plugin.json" });
-  assert.equal(JSON.parse(descriptor.content[0].text).id, "mcp-local-tools");
+  assert.equal(JSON.parse(descriptor.content[0].text).name, "mcp-local-tools");
+  assert.equal((await mcp.tool("read_text_file", { path: path.join(workspace, "README.md") })).isError, true);
+  await mcp.close();
+});
+
+test("plugin config launches outside workspace with plugin-only default root", { timeout: 10000 }, async (t) => {
+  const pluginRoot = path.resolve(__dirname, "..");
+  const manifest = JSON.parse(fs.readFileSync(path.join(pluginRoot, "plugin.json"), "utf8"));
+  const entry = manifest.mcpServers["local-tools"];
+  assert.equal(entry.command, "node");
+  assert.deepEqual(entry.args, ["${PLUGIN_ROOT}/mcp/server.js"]);
+  const mcp = client(t, entry.args.map((arg) => arg.replace("${PLUGIN_ROOT}", pluginRoot)));
+  await mcp.initialize();
+  const descriptor = await mcp.tool("read_text_file", { path: "plugin.json" });
+  assert.equal(JSON.parse(descriptor.content[0].text).name, "mcp-local-tools");
   assert.equal((await mcp.tool("read_text_file", { path: path.join(workspace, "README.md") })).isError, true);
   await mcp.close();
 });

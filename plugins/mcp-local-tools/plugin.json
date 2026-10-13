@@ -1,10 +1,11 @@
 {
-  "id": "mcp-local-tools",
-  "name": "Local Tools MCP",
+  "name": "mcp-local-tools",
   "version": "0.1.0",
-  "type": "mcp",
   "description": "Example MCP server config for local helper tools.",
-  "entry": {
-    "mcp": "mcp/server.json"
+  "mcpServers": {
+    "local-tools": {
+      "command": "node",
+      "args": ["${PLUGIN_ROOT}/mcp/server.js"]
+    }
   }
 }
