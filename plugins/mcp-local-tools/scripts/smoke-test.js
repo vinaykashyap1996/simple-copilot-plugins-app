@@ -12,8 +12,8 @@ const { test } = require("node:test");
 const server = path.resolve(__dirname, "../mcp/server.js");
 const workspace = path.resolve(__dirname, "../../..");
 
-function client(t, args, cwd = os.tmpdir()) {
-  const child = spawn(process.execPath, args, { cwd, stdio: ["pipe", "pipe", "pipe"] });
+function client(t, args, cwd = os.tmpdir(), command = process.execPath) {
+  const child = spawn(command, args, { cwd, stdio: ["pipe", "pipe", "pipe"] });
   const lines = readline.createInterface({ input: child.stdout });
   let pending;
   let stderr = "";
@@ -217,9 +217,9 @@ test("plugin config launches outside workspace with plugin-only default root", {
   const pluginRoot = path.resolve(__dirname, "..");
   const manifest = JSON.parse(fs.readFileSync(path.join(pluginRoot, "plugin.json"), "utf8"));
   const entry = manifest.mcpServers["local-tools"];
-  assert.equal(entry.command, "node");
-  assert.deepEqual(entry.args, ["${PLUGIN_ROOT}/mcp/server.js"]);
-  const mcp = client(t, entry.args.map((arg) => arg.replace("${PLUGIN_ROOT}", pluginRoot)));
+  assert.equal(entry.command, "/bin/sh");
+  assert.equal(entry.args.at(-1), "${PLUGIN_ROOT}/mcp/server.js");
+  const mcp = client(t, entry.args.map((arg) => arg.replace("${PLUGIN_ROOT}", pluginRoot)), os.tmpdir(), entry.command);
   await mcp.initialize();
   const descriptor = await mcp.tool("read_text_file", { path: "plugin.json" });
   assert.equal(JSON.parse(descriptor.content[0].text).name, "mcp-local-tools");

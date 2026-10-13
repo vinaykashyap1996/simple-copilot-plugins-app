@@ -34,6 +34,16 @@ then refresh the marketplace catalog. The catalog uses the
 `name`, `owner`, `metadata`, and plugin entries with repository-root-relative
 `source` paths (not the old custom `id`/`path` fields).
 
+### MCP startup troubleshooting
+
+If `mcp-local-tools` logs `spawn node ENOENT` for `local-tools` (common in
+VS Code with nvm-installed Node), update/reinstall the plugin: its MCP launch now
+goes through a login shell so nvm's `node` is found. Then start a new chat
+session and, in VS Code, run **MCP: List Servers** > `local-tools` > **Show
+Output** to read the logs. Verify that `list_directory`, `read_text_file`, and
+`grep_in_files` appear. See `plugins/mcp-local-tools/README.md` for the
+absolute-node-path fallback.
+
 ### Verification
 
 From a local checkout, validate JSON, metadata, and plugin source directories:

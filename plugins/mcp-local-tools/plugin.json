@@ -4,8 +4,13 @@
   "description": "Example MCP server config for local helper tools.",
   "mcpServers": {
     "local-tools": {
-      "command": "node",
-      "args": ["${PLUGIN_ROOT}/mcp/server.js"]
+      "command": "/bin/sh",
+      "args": [
+        "-c",
+        "exec \"${SHELL:-/bin/sh}\" -lc '[ -s \"$1\" ] && . \"$1\" >/dev/null 2>&1; exec node \"$0\"' \"$1\" \"${NVM_DIR:-$HOME/.nvm}/nvm.sh\"",
+        "mcp-local-tools",
+        "${PLUGIN_ROOT}/mcp/server.js"
+      ]
     }
   }
 }
