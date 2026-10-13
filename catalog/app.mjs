@@ -5,6 +5,7 @@ const plugins = document.querySelector('#plugins');
 const filters = document.querySelector('#filters');
 const type = document.querySelector('#type');
 const provider = document.querySelector('#provider');
+const pluginStatus = document.querySelector('#plugin-status');
 const bundle = document.querySelector('#bundle');
 
 function element(tag, text, className) {
@@ -27,6 +28,7 @@ async function loadCatalog() {
     const registry = await response.json();
     for (const value of registry.types) option(type, value, value);
     for (const [id, label] of Object.entries(registry.providers)) option(provider, id, label);
+    for (const value of registry.statuses) option(pluginStatus, value, value);
     for (const collection of registry.bundles) {
       option(bundle, collection.id, collection.name);
       const card = element('article');
@@ -50,14 +52,14 @@ async function loadCatalog() {
 
     function render() {
       const matches = filterPlugins(registry, {
-        type: type.value, provider: provider.value, bundle: bundle.value,
+        type: type.value, provider: provider.value, status: pluginStatus.value, bundle: bundle.value,
       });
       plugins.replaceChildren();
       for (const plugin of matches) {
         const card = element('article');
         card.append(
           element('h3', plugin.name),
-          element('p', plugin.status === 'draft' ? 'Draft / unverified' : 'Existing sample', 'badge'),
+          element('p', plugin.status, 'badge'),
           element('p', plugin.description),
           element('p', `Types: ${plugin.types.join(', ')}`)
         );
@@ -66,7 +68,7 @@ async function loadCatalog() {
         }
         const collections = registry.bundles.filter(item => item.pluginIds.includes(plugin.id));
         if (collections.length) card.append(element('p', `Collections: ${collections.map(item => item.name).join(', ')}`));
-        if (plugin.status === 'available' && plugin.source) {
+        if (plugin.status === 'verified' && plugin.source) {
           const url = new URL(plugin.source, window.location.href);
           if (url.origin === window.location.origin && ['http:', 'https:'].includes(url.protocol)) {
             const link = element('a', 'View local plugin files');

@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "types": ["skills", "prompts", "mcp", "instructions", "agents", "scripts", "references"],
+  "statuses": ["verified", "draft", "unverified"],
   "providers": {
     "github_copilot": "GitHub Copilot",
     "claude": "Claude"
@@ -12,7 +13,7 @@
       "name": "Skill Summarizer",
       "description": "Existing sample skill for summarizing GitHub issues.",
       "types": ["skills", "prompts", "scripts", "references"],
-      "status": "available",
+      "status": "verified",
       "source": "../plugins/skill-summarizer/",
       "compatibility": { "github_copilot": "native", "claude": "unverified" }
     },
@@ -21,7 +22,7 @@
       "name": "Agent Triage",
       "description": "Existing sample agent for reviewing pull request risk and test gaps.",
       "types": ["agents", "prompts", "references"],
-      "status": "available",
+      "status": "verified",
       "source": "../plugins/agent-triage/",
       "compatibility": { "github_copilot": "native", "claude": "unverified" }
     },
@@ -30,7 +31,7 @@
       "name": "MCP Local Tools",
       "description": "Existing read-only local file tools; see the setup and safety guide.",
       "types": ["mcp", "scripts", "references"],
-      "status": "available",
+      "status": "verified",
       "source": "../plugins/mcp-local-tools/",
       "compatibility": { "github_copilot": "native", "claude": "unverified" }
     },

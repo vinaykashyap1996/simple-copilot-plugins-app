@@ -18,6 +18,7 @@ const requested = [
 test('registry schema has unique IDs, known types, and explicit provider compatibility', () => {
   assert.equal(registry.schemaVersion, 1);
   assert.deepEqual(registry.types, ['skills', 'prompts', 'mcp', 'instructions', 'agents', 'scripts', 'references']);
+  assert.deepEqual(registry.statuses, ['verified', 'draft', 'unverified']);
   assert.deepEqual(Object.keys(registry.providers), ['github_copilot', 'claude']);
   assert.deepEqual(registry.compatibilityStatuses, ['native', 'adapted', 'unsupported', 'unverified']);
   assert.equal(new Set(registry.plugins.map(plugin => plugin.id)).size, registry.plugins.length);
@@ -27,7 +28,7 @@ test('registry schema has unique IDs, known types, and explicit provider compati
     assert(plugin.name.length > 0);
     assert.equal(typeof plugin.description, 'string');
     assert(plugin.description.length > 0);
-    assert(['available', 'draft'].includes(plugin.status));
+    assert(registry.statuses.includes(plugin.status));
     assert(plugin.types.length > 0);
     assert.equal(new Set(plugin.types).size, plugin.types.length);
     for (const type of plugin.types) assert(registry.types.includes(type));
@@ -45,11 +46,11 @@ test('all requested names remain unverified drafts with no installation source',
   }
 });
 
-test('available entries match the unchanged Copilot marketplace and local plugin directories', () => {
+test('verified entries match the unchanged Copilot marketplace and local plugin directories', () => {
   const marketplace = JSON.parse(fs.readFileSync(path.join(root, '.github/plugin/marketplace.json'), 'utf8'));
-  const available = registry.plugins.filter(plugin => plugin.status === 'available');
-  assert.deepEqual(available.map(plugin => plugin.id), marketplace.plugins.map(plugin => plugin.name));
-  for (const plugin of available) {
+  const verified = registry.plugins.filter(plugin => plugin.status === 'verified');
+  assert.deepEqual(verified.map(plugin => plugin.id), marketplace.plugins.map(plugin => plugin.name));
+  for (const plugin of verified) {
     const entry = marketplace.plugins.find(item => item.name === plugin.id);
     const source = path.resolve(catalog, plugin.source);
     assert.equal(source, path.resolve(root, entry.source));
