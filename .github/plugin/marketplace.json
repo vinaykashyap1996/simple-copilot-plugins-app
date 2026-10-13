@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "name": "Simple Copilot Plugins App",
+  "description": "Marketplace-style catalog for Copilot plugins (skills, agents, MCP, prompts, scripts, references).",
+  "plugins": [
+    {
+      "id": "skill-summarizer",
+      "name": "Issue Summarizer Skill",
+      "version": "0.1.0",
+      "path": "plugins/skill-summarizer",
+      "components": ["skills", "prompts", "scripts", "references"],
+      "tags": ["skills", "summarization", "issues"]
+    },
+    {
+      "id": "agent-triage",
+      "name": "PR Triage Agent",
+      "version": "0.1.0",
+      "path": "plugins/agent-triage",
+      "components": ["agents", "prompts", "references"],
+      "tags": ["agents", "triage", "pull-requests"]
+    },
+    {
+      "id": "mcp-local-tools",
+      "name": "Local Tools MCP",
+      "version": "0.1.0",
+      "path": "plugins/mcp-local-tools",
+      "components": ["mcp", "scripts", "references"],
+      "tags": ["mcp", "local", "tooling"]
+    }
+  ]
+}

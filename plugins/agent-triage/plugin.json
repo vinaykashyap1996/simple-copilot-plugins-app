@@ -1,0 +1,10 @@
+{
+  "id": "agent-triage",
+  "name": "PR Triage Agent",
+  "version": "0.1.0",
+  "type": "agent",
+  "description": "Reviews pull requests for risk, test gaps, and rollout readiness.",
+  "entry": {
+    "agent": "agents/pr-triage.agent.md"
+  }
+}
